@@ -2,7 +2,7 @@
 import React, { useReducer, useEffect, useContext, useState } from "react";
 import { Container, Grid } from "@material-ui/core";
 
-import { useLoginStyles } from "./login.styles";
+import { useLoginStyles } from "./Login.styles";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import AppContext from "../Context/AppContext";
@@ -11,8 +11,10 @@ import { SIGN_IN } from "../Mutations/Mutations";
 import { SplashScreenContainer } from "./LoginComponents/SplashScreenContainer";
 import { LoginContainer } from "./LoginComponents/LoginContainer";
 import useFormReducer from "../Utils/UseFormReducer";
-import { validations } from "./login.utils";
+import { validations } from "./Login.utils";
 import BasicAlert from "../RootComponents/BasicAlert";
+import { getUserRoutes } from '../Utils/utils';
+
 const viewReducer = (prevState, action) => {
   switch (action.type) {
     case "handleViews":
@@ -23,6 +25,10 @@ const viewReducer = (prevState, action) => {
 };
 
 const Login = ({ history }) => {
+  // clears local storage when login renders
+  useEffect(() => {
+    localStorage.clear()
+  },[])
   // Handles alert
   const [alert, handleAlert] = useState({
     open: false,
@@ -43,17 +49,17 @@ const Login = ({ history }) => {
   });
 
   // In case request is performed with no errors
-  const handleSuccess = (data) => {;
-    localStorage.clear();
+  const handleSuccess = (data) => {
+    const userRoutes = getUserRoutes(data.signIn.user.role)
     localStorage.setItem("token", data.signIn.token.token);
-    localStorage.setItem("xcoins-user", data.signIn.user);
+    localStorage.setItem("xcoins-user", JSON.stringify(data.signIn.user));
 
-    appProvider.setUser(data.signIn);
+    appProvider.setUser(data.signIn.user);
+    appProvider.setRoutes(userRoutes)
     history.replace("/home");
   };
 
   const handleError = (error) => {
-    console.log(Object.keys(error))
     handleAlert({
       open: true,
       text: error.message,

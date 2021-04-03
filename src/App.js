@@ -1,50 +1,56 @@
-import React from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import "./App.css";
-import { Switch, Route } from "react-router-dom";
-import Login from "./Components/Login/Login";
-import SignUp from "./Components/SignUp/SignUp";
 
 import Navbar from "./Components/Navbar/Navbar";
 import AppContext from "./Components/Context/AppContext";
-import { getUserRoutes } from "./Components/Utils/utils";
-
+import _ from "lodash";
 function AppProvider(user) {
   this.user = user;
+  this.routes = [];
+  this.alert = {
+    severity: null,
+    open: false,
+    text: ''
+  }
 
   this.setUser = (newUser) => {
     this.user = newUser;
   };
 
   this.getUser = () => {
-    return user;
+    return this.user;
   };
+
+  this.setRoutes = () => {
+    return this.routes;
+  };
+
+  this.setAlert = (alert) => {
+    this.alert = alert
+  }
 }
 
 function App() {
-  const appProvider = new AppProvider({
-    name: null,
-    token: null,
-    role: null,
-  });
+  const appProvider = useMemo(
+    () =>
+      new AppProvider({
+        name: null,
+        token: null,
+        role: null,
+      }),
+    []
+  );
 
   const localUser = localStorage.getItem("xcoins-user");
 
   if (localUser) {
-    appProvider.setUser(localUser);
+    appProvider.setUser(JSON.parse(localUser));
   }
-
-  const userRoutes = getUserRoutes(appProvider.user.role);
 
   return (
     <AppContext.Provider value={appProvider}>
       <div>
         <Navbar appProvider={appProvider} />
-        <Switch>
-          {userRoutes.map((route) => (
-            <Route path={route.path} component={route.component} />
-          ))}
-          <Route path="/" component={Login} />
-        </Switch>
       </div>
     </AppContext.Provider>
   );

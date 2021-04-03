@@ -5,6 +5,7 @@ import { Container, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { deepPurple } from "../Utils/colors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
     maxHeight: "auto",
     padding: "100px 50px 100px 50px",
-    backgroundColor: "#393e46",
     zIndex: "-1",
   },
   rootSm: {
@@ -20,17 +20,16 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
     maxHeight: "auto",
     padding: "15px 15px 15px 15px",
-    backgroundColor: "#393e46",
     zIndex: "-1",
   },
   parent: {
     height: "100%",
-    backgroundColor: "#40464F",
+    backgroundColor: deepPurple,
     minHeight: 400,
   },
 }));
 
-export function BasicContainer({ children }) {
+const BasicContainer = ({ children }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
   const classes = useStyles();
@@ -40,9 +39,9 @@ export function BasicContainer({ children }) {
       maxWidth="xl"
       className={matches ? classes.root : classes.rootSm}
     >
-      <Grid container className={classes.parent} alignContent="flex-start">
-        {children}
-      </Grid>
+      {children}
     </Container>
   );
-}
+};
+
+export default BasicContainer;

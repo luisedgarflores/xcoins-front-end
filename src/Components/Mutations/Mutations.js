@@ -27,7 +27,7 @@ export const SIGN_UP = gql`
 
 export const DELETE_USER = gql`
   mutation deleteUsuario($input: DeleteUserInput!) {
-    deleteUsuario(input: $input) 
+    deleteUsuario(input: $input)
   }
 `;
 
@@ -38,10 +38,10 @@ export const CREATE_USUARIO = gql`
       nombre
     }
   }
-`
+`;
 
 export const ACCEPT_INVITATION = gql`
-  mutation AcceptInvitation($input: AcceptInvitationInput!){
+  mutation AcceptInvitation($input: AcceptInvitationInput!) {
     acceptInvitation(input: $input) {
       invitation
     }
@@ -87,10 +87,10 @@ export const CREAR_DEPARTAMENTO = gql`
     createDepartamento(input: $input) {
       id
       nombre
-      usuarios{
+      usuarios {
         id
       }
-      documentos{
+      documentos {
         id
       }
     }
@@ -101,7 +101,7 @@ export const DELETE_DOCUMENT = gql`
   mutation deleteDocumento($input: DeleteDocumentoInput!) {
     deleteDocumento(input: $input)
   }
-`
+`;
 
 export const CREAR_DOCUMENTO = gql`
   mutation createDocumento($input: createDocInput!) {

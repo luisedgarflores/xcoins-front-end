@@ -24,8 +24,6 @@ const formValidation = ({ form, dispatchForm, validations }) => {
       }
     }
 
-    console.log(valid)
-
     return valid;
   }
 };

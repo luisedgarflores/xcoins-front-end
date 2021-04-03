@@ -1,6 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { deepBlue, deepPurple } from "../Utils/colors";
-
+import { deepPurple } from "../Utils/colors";
 
 export const useLoginStyles = makeStyles((theme) => ({
   root: {
@@ -21,8 +20,8 @@ export const useLoginStyles = makeStyles((theme) => ({
     height: "100%",
     margin: 0,
     padding: 0,
-},
-containerSm: {
+  },
+  containerSm: {
     height: "100%",
     margin: 0,
     padding: 0,
@@ -31,7 +30,9 @@ containerSm: {
     padding: "0px 20px 0px 20px",
     height: "100%",
     minHeight: 600,
-    background: deepBlue,
+    background: "rgb(4,150,255)",
+    background:
+      "linear-gradient(56deg, rgba(4,150,255,1) 0%, rgba(153,226,235,1) 100%)",
     borderRadius: "8px 0px 0px 8px",
   },
   loginContainer: {
@@ -44,7 +45,9 @@ containerSm: {
   splashScreenContainerSm: {
     padding: "20px 20px 20px 20px",
     height: 500,
-    background: deepBlue,
+    background: "rgb(4,150,255)",
+    background:
+      "linear-gradient(56deg, rgba(4,150,255,1) 0%, rgba(153,226,235,1) 100%)",
     borderRadius: "15px 15px 15px 15px",
   },
   loginContainerSm: {

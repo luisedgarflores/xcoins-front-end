@@ -5,7 +5,6 @@ export default function useMutationHelper(mutation, {
   onErrorFn,
   refetchQueries
 }) {
-  console.log('I MUTATIONS')
   const [mutationFn, { error, loading, data,  }] = useMutation(mutation, {
     onCompleted(data) {
       onCompletedFn && onCompletedFn(data);

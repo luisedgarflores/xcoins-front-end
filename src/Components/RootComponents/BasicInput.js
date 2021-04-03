@@ -24,7 +24,7 @@ const BasicInput = memo(({
       if (isNewValueNumeric) {
         dispatchValue({
           name,
-          value: event.target.values,
+          value: event.target.value,
           key: mapperKey,
         });
       }

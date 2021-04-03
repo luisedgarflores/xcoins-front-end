@@ -1,5 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext } from "react";
 
-const AppContext = createContext('hola mundo')
+const AppContext = createContext({})
 
 export default AppContext;

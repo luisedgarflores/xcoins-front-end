@@ -1,12 +1,13 @@
 import { AppBar, makeStyles, Toolbar } from "@material-ui/core";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import { withRouter } from "react-router";
 import BasicButton from "../RootComponents/BasicButton";
 import { Switch, Route } from "react-router-dom";
 import { getUserRoutes } from "../Utils/utils";
 import AppContext from "../Context/AppContext";
-import Login from '../Login/Login'
-import BasicAlert from '../RootComponents/BasicAlert';
+import Login from "../Login/Login";
+import BasicAlert from "../RootComponents/BasicAlert";
+import _ from 'lodash'
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -35,9 +36,9 @@ const Navbar = ({ history, _providerInstance }) => {
     appProvider.setRoutes([]);
     localStorage.clear();
     history.replace("/");
-  };
+  }
 
-  const [currentRoute, setCurrentRoute] = useState('/home');
+  const [currentRoute, setCurrentRoute] = useState("/home");
   const handleRouteChange = (newRoute) => {
     setCurrentRoute((prevRoute) => {
       history.replace(newRoute);
@@ -45,16 +46,16 @@ const Navbar = ({ history, _providerInstance }) => {
     });
   };
 
-  const userRoutes = getUserRoutes(appProvider.user.role).filter(
-    (route) => route.shouldAppear
-  );
+  const userRoutes = getUserRoutes(appProvider.user.role);
+
+  const buttonRoutes = userRoutes.filter((route) => route.shouldAppear);
 
   return (
     <>
       {appProvider.user.role && (
-        <AppBar position="fixed" color='secondary'>
+        <AppBar position="fixed" color="secondary">
           <Toolbar variant="dense">
-            {userRoutes.map((route) => (
+            {buttonRoutes.map((route) => (
               <BasicButton
                 className={classes.button}
                 disableElevation={true}
@@ -64,7 +65,11 @@ const Navbar = ({ history, _providerInstance }) => {
                 {route.name}
               </BasicButton>
             ))}
-            <BasicButton color='secondary' className={classes.button} handleClick={handleLogout}>
+            <BasicButton
+              color="secondary"
+              className={classes.button}
+              handleClick={handleLogout}
+            >
               Cerrar sesión
             </BasicButton>
           </Toolbar>
@@ -76,7 +81,12 @@ const Navbar = ({ history, _providerInstance }) => {
         ))}
         <Route path="/" component={Login} />
       </Switch>
-      <BasicAlert open={alert.open} handleAlert={handleAlert} text={alert.text} severity={alert.severity}/>
+      <BasicAlert
+        open={alert.open}
+        handleAlert={handleAlert}
+        text={alert.text}
+        severity={alert.severity}
+      />
     </>
   );
 };

@@ -1,10 +1,10 @@
 export const email = {
   email: {
-    message: "^*Debes introducir un mail válido"
+    message: "^*Valid mail is required"
   },
   presence: {
     allowEmpty: false,
-    message: "^*El mail es requerido"
+    message: "^*Mail is required"
   }
 }
 
@@ -17,7 +17,7 @@ export const loginRequired = {
 export const user = {
   presence: {
     allowEmpty: false,
-    message: "^*El usuario es requerido",
+    message: "^*User is required",
   },
 };
 
@@ -28,31 +28,24 @@ export const userLogin = {
 export const roleRequired = {
   presence: {
     allowEmpty: false,
-    message: '^*El rol es requerido'
-  }
-}
-
-export const phoneRequired = {
-  presence: {
-    allowEmpty: false,
-    message: '^*El telefono es requerido'
+    message: '^*Role is required'
   }
 }
 
 export const nameRequired = {
   presence: {
     allowEmpty: false,
-    message: '^*El nombre es requerido'
+    message: '^*Name is required'
   }
 }
 
 export const userSignUp = {
   ...user,
   length: {
-    minimum: 6,
+    minimum: 7,
     maximum: 20,
-    tooShort: "^*El nombre de usuario debe contener 6 caracteres al menos",
-    tooLong: "^*El nombre de usuario no puede ser de más de 20 caracteres"
+    tooShort: "^*Username length must be at least 7 characters",
+    tooLong: "^*Username length cannot be longer than 20 characters"
   },
 };
 
@@ -63,57 +56,12 @@ export const passwordRequired = {
   },
 };
 
-export const tipoDoc = {
-  presence: {
-    allowEmpty: false,
-    message: '^*El tipo de documento es requerido'
-  }
-}
-
-export const periodo = {
-  presence: {
-    allowEmpty: false,
-    message: '^*El periodo es requerido'
-  }
-}
-
-export const archivo = {
-  presence: {
-    allowEmpty: false,
-    message: '^*El archivo es requerido'
-  }
-}
-
 export const passwordSignUp = {
   length: {
     minimum: 6,
     maximum: 20,
-    tooShort: "^*La contraseña debe contener al menos 6 caracteres",
-    tooLong: "^*La contraseña no puede ser de más de 20 caracteres"
+    tooShort: "^*Password length must be at least 7 characters",
+    tooLong: "^*Password length cannot be longer than 20 characters",
   }
 };
 
-export const mensajeRequired = {
-  presence: {
-    allowEmpty: false,
-    message: '^*El mensaje es requerido'
-  }
-}
-
-export const tipoUsuarioRequired = {
-  presence: {
-    allowEmpty: false,
-    message: '^*El tipo de usuario es requerido'
-  }
-}
-
-export const rfcRequired = {
-  presence: {
-    allowEmpty: false,
-    message: '^*El RFC es requerido',
-  },
-  format: {
-    pattern: /^([A-Z,Ñ,&]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[A-Z|\d]{3})$/,
-    message: '^*El RFC introducido no tiene un patrón válido'
-  }
-}

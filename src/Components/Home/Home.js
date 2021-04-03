@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // Basic components
 import BasicContainer from "../RootComponents/BasicContainer";
 // Home components
@@ -9,38 +9,37 @@ import Grid from "@material-ui/core/Grid";
 // Styles
 import { useHomeStyles } from "./Home.styles";
 // Subscriptions
-import { useSubscription } from "@apollo/client";
-import { UPDATE_EXCHANGE_RATE } from "../Subscriptions/Subscriptions";
+import { useLazyQuery } from "@apollo/client";
+import BasicLoading from "../RootComponents/BasicLoading";
+// Queries
+import { GET_EXCHANGE_RATE } from "../Queries/Queries";
 
 const Home = ({ props }) => {
   const classes = useHomeStyles();
-  const { data, loading, error } = useSubscription(UPDATE_EXCHANGE_RATE);
-  if (data) {
-    console.log(data);
+  const [
+    executeQuery,
+    { data: initialData, loading: initialLoading, error: initialError },
+  ] = useLazyQuery(GET_EXCHANGE_RATE);
+
+  if (initialError) {
+    console.log(initialError);
   }
 
-  if (error) {
-    console.log(error);
-  }
+  useEffect(() => {
+    executeQuery();
+  }, [executeQuery]);
 
-  if (loading) {
-    console.log("loading");
-  }
   return (
     <BasicContainer>
-      <Grid
-        container
-        alignContent="center"
-        justify="center"
-        className={classes.root}
+      <ExchangeContainer
+        title="BTC/USD"
+        subtitle='Get current exchange rate for BTS/USD. Fill "Set spread" to calculate custom spread. Exchange rate automatically updates every 60 seconds.'
       >
-        <ExchangeContainer
-          title="BTC/USD"
-          subtitle='Get current exchange rate for BTS/USD. Fill "Set spread" to calculate custom spread'
-        >
-          {data && !loading && <ExchangeBar data={data.exchangeRateUpdated}/>}
-        </ExchangeContainer>
-      </Grid>
+        {initialData?.getExchangeRate && !initialLoading && (
+          <ExchangeBar initialData={initialData.getExchangeRate} />
+        )}
+        {initialLoading && <BasicLoading />}
+      </ExchangeContainer>
     </BasicContainer>
   );
 };

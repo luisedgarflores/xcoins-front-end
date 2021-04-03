@@ -9,36 +9,40 @@ import { BrowserRouter as Router } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
-import { createUploadLink } from "apollo-upload-client";
 
 import { setContext } from "@apollo/client/link/context";
-import { deepBlue, lightPurple, white, deepPurple } from "./Components/Utils/colors";
-import { split, HttpLink } from '@apollo/client';
-import { getMainDefinition } from '@apollo/client/utilities';
+import {
+  deepBlue,
+  lightPurple,
+  white,
+  deepPurple,
+} from "./Components/Utils/colors";
+import { split, HttpLink } from "@apollo/client";
+import { getMainDefinition } from "@apollo/client/utilities";
 
-import { WebSocketLink } from '@apollo/client/link/ws';
+import { WebSocketLink } from "@apollo/client/link/ws";
 
 const wsLink = new WebSocketLink({
-  uri: 'ws://localhost:8000/graphql',
+  uri: "ws://localhost:8000/graphql",
   options: {
-    reconnect: true
-  }
+    reconnect: true,
+  },
 });
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:8000/graphql'
+  uri: "http://localhost:8000/graphql",
 });
 
 const splitLink = split(
   ({ query }) => {
     const definition = getMainDefinition(query);
     return (
-      definition.kind === 'OperationDefinition' &&
-      definition.operation === 'subscription'
+      definition.kind === "OperationDefinition" &&
+      definition.operation === "subscription"
     );
   },
   wsLink,
-  httpLink,
+  httpLink
 );
 
 const authLink = setContext((_, { headers }) => {
@@ -52,8 +56,6 @@ const authLink = setContext((_, { headers }) => {
     },
   };
 });
-
-
 
 const client = new ApolloClient({
   link: authLink.concat(splitLink),

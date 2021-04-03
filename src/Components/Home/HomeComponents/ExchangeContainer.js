@@ -17,7 +17,7 @@ const ExchangeContainer = ({ children, title, subtitle }) => {
         <Typography align="center" variant="h1">
           {title}
         </Typography>
-        <Typography align="center" variant="h5">
+        <Typography align="center" variant="h6">
           {subtitle}
         </Typography>
       </Grid>

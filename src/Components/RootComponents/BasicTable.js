@@ -3,6 +3,7 @@ import React, { memo, useCallback } from "react";
 import { Grid, Typography } from "@material-ui/core";
 //RootComponents
 import BasicButton from "../RootComponents/BasicButton";
+import { lightPurple, deepPurple } from '../Utils/colors';
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -14,16 +15,11 @@ import TableRow from "@material-ui/core/TableRow";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    minHeight: 1000,
-    height: "100vh",
-    maxHeight: "auto",
-    padding: "100px 50px 100px 50px",
-    backgroundColor: "#393e46",
-    zIndex: "-1",
+    height: '100%'
   },
   rootSm: {
     minHeight: 530,
-    height: "100vh",
+    height: "100%",
     maxHeight: "auto",
     padding: "15px 15px 15px 15px",
     backgroundColor: "#393e46",
@@ -59,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
   },
   table: {
     width: "100%",
-    backgroundColor: "#393e46",
+    backgroundColor: deepPurple,
     minHeight: "80%",
     maxHeight: 800,
     margin: "0px 24px 0px 24px",
@@ -73,7 +69,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const BasicTable = memo(
-  ({ title, addButtonText, columns, data, addLink, history }) => {
+  ({ title, columns, data, addLink, history, content, deleteMutation }) => {
+    const handleDelete = (id) => {
+      console.log(id);
+      deleteMutation({
+        variables: {
+          input: {
+            id,
+          },
+        },
+    });
+    };
+
     const [page, setPage] = React.useState(0);
     const classes = useStyles();
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -90,7 +97,7 @@ const BasicTable = memo(
     }, []);
 
     return (
-      <Grid container>
+      <Grid container className={classes.root}>
         <Grid
           item
           xs={12}
@@ -103,7 +110,7 @@ const BasicTable = memo(
           </Grid>
           <Grid item xs={6} container justify="flex-end">
             <BasicButton handleClick={handleAddButton} color="primary">
-              {addButtonText}
+              {content.addButtonText}
             </BasicButton>
           </Grid>
         </Grid>
@@ -134,16 +141,16 @@ const BasicTable = memo(
                         tabIndex={-1}
                         key={row.code}
                       >
-                        {columns.map((column) => {
+                        {columns.map((column, index) => {
                           const value = row[column.id];
                           if (column.id === "edit") {
                             return (
-                              <TableCell key="h" align="center">
+                              <TableCell key={index} align="center">
                                 <BasicButton
                                   color="error"
-                                  handleClick={() => console.log(row.name)}
+                                  handleClick={() => handleDelete(row.id)}
                                 >
-                                  Eliminar
+                                  {content.deleteButtonText}
                                 </BasicButton>
                               </TableCell>
                             );

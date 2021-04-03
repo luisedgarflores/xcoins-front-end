@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useRef, useMemo } from "react";
+import React, { useMemo } from "react";
 import "./App.css";
 
 import Navbar from "./Components/Navbar/Navbar";
 import AppContext from "./Components/Context/AppContext";
-import _ from "lodash";
+
 function AppProvider(user) {
   this.user = user;
   this.routes = [];

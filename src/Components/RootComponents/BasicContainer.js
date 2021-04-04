@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BasicContainer = ({ children }) => {
+const BasicContainer = ({ children, alignContent="center", justify="center" }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
   const classes = useStyles();
@@ -42,7 +42,7 @@ const BasicContainer = ({ children }) => {
     >
       <Grid
         container
-        alignContent="center"
+        alignContent={alignContent}
         justify="center"
         className={classes.parent}
       >

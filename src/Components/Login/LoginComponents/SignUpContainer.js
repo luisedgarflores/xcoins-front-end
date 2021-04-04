@@ -4,7 +4,7 @@ import { Grid, Typography } from "@material-ui/core";
 import BasicInput from "../../RootComponents/BasicInput";
 import BasicButton from "../../RootComponents/BasicButton";
 import { content } from "../Login.utils";
-export function LoginContainer({
+export function SignUpContainer({
   matches,
   classes,
   form,
@@ -23,64 +23,81 @@ export function LoginContainer({
       container
       item
       md={8}
-      spacing={0}
       alignItems="center"
       alignContent="center"
       justify="center"
     >
       <Grid item xs={7} className={classes.mb4}>
-        <Typography variant="h4">{content.text.loginForm}</Typography>
+        <Typography variant="h4">{content.text.signUpForm}</Typography>
       </Grid>
-      <Grid item container xs={7} className={classes.mb4}>
+      <Grid item xs={7} className={classes.field}>
         <BasicInput
-          value={form[0].login.value}
+          label="Name"
+          value={form[0].name.value}
+          errorText={form[0].name.error}
           dispatchValue={dispatchValue}
-          errorText={form[0].login.error}
-          label={content.text.loginInput}
-          mapperKey="login"
-          name="login"
+          mapperKey="name"
         />
       </Grid>
-      <Grid item container xs={7} className={classes.mb4}>
+      <Grid item xs={7} className={classes.field}>
         <BasicInput
-          value={form[0].password.value}
+          label="Username"
+          value={form[0].username.value}
+          errorText={form[0].username.error}
           dispatchValue={dispatchValue}
+          mapperKey="username"
+        />
+      </Grid>
+      <Grid item xs={7} className={classes.field}>
+        <BasicInput
+          label="Email"
+          value={form[0].email.value}
+          errorText={form[0].email.error}
+          dispatchValue={dispatchValue}
+          mapperKey="email"
+        />
+      </Grid>
+      <Grid item xs={7} className={classes.field}>
+        <BasicInput
+          label="Password"
+          value={form[0].password.value}
           errorText={form[0].password.error}
-          label={content.text.passwordInput}
-          name="password"
-          mapperKey="password"
           type="password"
+          dispatchValue={dispatchValue}
+          mapperKey="password"
         />
       </Grid>
       <Grid item container xs={7} className={classes.mb4}>
         <BasicButton handleClick={next} color="primary" fullWidth={true}>
-          {content.text.loginButton}
-        </BasicButton>
-      </Grid>
-      <Grid item container xs={7} className={classes.mb4}>
-        <BasicButton
-          handleClick={() =>
-            dispatchViews({
-              login: false,
-              signUp: true,
-              splashScreen: matches ? true : false,
-              otpScreen: false
-            })
-          }
-          color="primary"
-          fullWidth={true}
-        >
           {content.text.signUpButton}
         </BasicButton>
       </Grid>
+      {matches && (
+        <Grid item container xs={7} className={classes.mb4}>
+          <BasicButton
+            handleClick={() =>
+              dispatchViews({
+                login: true,
+                splashScreen: true,
+                signUp: false,
+                otpScreen: false,
+              })
+            }
+            color="primary"
+            fullWidth={true}
+          >
+            {content.text.loginButton}
+          </BasicButton>
+        </Grid>
+      )}
       {!views.splashScreen && (
         <Grid item container xs={7}>
           <BasicButton
             handleClick={() =>
               dispatchViews({
-                login: false,
+                login: true,
+                splashScreen: false,
                 signUp: false,
-                splashScreen: true,
                 otpScreen: false,
               })
             }

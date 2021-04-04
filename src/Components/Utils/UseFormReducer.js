@@ -73,7 +73,7 @@ const useFormReducer = ({ initialState, validations }) => {
       validations,
     });
 
-    return valid
+    return valid;
   };
 
   const updateForm = ({ index, value, key }) => {
@@ -85,7 +85,14 @@ const useFormReducer = ({ initialState, validations }) => {
       validations,
     });
   };
-  return [form, dispatchForm, { validateForm, updateForm }];
+
+  const resetForm = () => {
+    dispatchForm({
+      type: "reset",
+      resetState: initialState,
+    });
+  };
+  return [form, dispatchForm, { validateForm, updateForm, resetForm }];
 };
 
 export default useFormReducer;

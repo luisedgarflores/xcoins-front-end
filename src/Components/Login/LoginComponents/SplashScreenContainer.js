@@ -4,10 +4,19 @@ import { Grid, Typography } from "@material-ui/core";
 import BasicButton from "../../RootComponents/BasicButton";
 import bitcoin from "../../../Img/bitcoin.png";
 
-export function SplashScreenContainer({ classes, matches, dispatchViews, views }) {
+export function SplashScreenContainer({
+  classes,
+  matches,
+  dispatchViews,
+  views,
+}) {
   return (
     <Grid
-      className={matches ? classes.splashScreenContainer : classes.splashScreenContainerSm}
+      className={
+        matches
+          ? classes.splashScreenContainer
+          : classes.splashScreenContainerSm
+      }
       container
       item
       md={4}
@@ -28,11 +37,7 @@ export function SplashScreenContainer({ classes, matches, dispatchViews, views }
         <img className={classes.bitcoin} src={bitcoin} alt="Xcoin logo" />
       </Grid>
       <Grid item xs={12}>
-        <Typography
-          className={classes.title}
-          align="center"
-          variant="h3"
-        >
+        <Typography className={classes.title} align="center" variant="h3">
           Xcoins
         </Typography>
       </Grid>
@@ -43,7 +48,7 @@ export function SplashScreenContainer({ classes, matches, dispatchViews, views }
           without the wait.
         </Typography>
       </Grid>
-      {!views.login && (
+      {!views.login &&  !views.signUp && !views.otpScreen && (
         <SplashScreenButton classes={classes} dispatchViews={dispatchViews} />
       )}
     </Grid>
@@ -51,16 +56,6 @@ export function SplashScreenContainer({ classes, matches, dispatchViews, views }
 }
 
 function SplashScreenButton({ classes, dispatchViews }) {
-  const handleClick = () => {
-    dispatchViews({
-      type: "handleViews",
-      value: {
-        login: true,
-        splashScreen: false,
-        signUp: false,
-      },
-    });
-  };
   return (
     <Grid
       className={classes.loginButton}
@@ -69,7 +64,18 @@ function SplashScreenButton({ classes, dispatchViews }) {
       container
       justify="center"
     >
-      <BasicButton fullWidth={true} color="secondary" handleClick={handleClick}>
+      <BasicButton
+        fullWidth={true}
+        color="secondary"
+        handleClick={() =>
+          dispatchViews({
+            login: true,
+            splashScreen: false,
+            signUp: false,
+            otpScreen: false,
+          })
+        }
+      >
         Sign in
       </BasicButton>
     </Grid>

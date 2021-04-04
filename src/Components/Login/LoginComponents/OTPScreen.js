@@ -4,7 +4,7 @@ import { Grid, Typography } from "@material-ui/core";
 import BasicInput from "../../RootComponents/BasicInput";
 import BasicButton from "../../RootComponents/BasicButton";
 import { content } from "../Login.utils";
-export function LoginContainer({
+export function OTPScreen({
   matches,
   classes,
   form,
@@ -12,6 +12,7 @@ export function LoginContainer({
   dispatchViews,
   updateForm,
   next,
+  requestOTP,
 }) {
   const dispatchValue = ({ key, value }) => {
     updateForm({ key, value, index: 0 });
@@ -29,68 +30,45 @@ export function LoginContainer({
       justify="center"
     >
       <Grid item xs={7} className={classes.mb4}>
-        <Typography variant="h4">{content.text.loginForm}</Typography>
+        <Typography variant="h4">Confirmation code</Typography>
       </Grid>
       <Grid item container xs={7} className={classes.mb4}>
         <BasicInput
-          value={form[0].login.value}
+          value={form[0].otp.value}
           dispatchValue={dispatchValue}
-          errorText={form[0].login.error}
-          label={content.text.loginInput}
-          mapperKey="login"
-          name="login"
-        />
-      </Grid>
-      <Grid item container xs={7} className={classes.mb4}>
-        <BasicInput
-          value={form[0].password.value}
-          dispatchValue={dispatchValue}
-          errorText={form[0].password.error}
-          label={content.text.passwordInput}
-          name="password"
-          mapperKey="password"
-          type="password"
+          errorText={form[0].otp.error}
+          label={content.text.otpInput}
+          type="numerical"
+          mapperKey="otp"
+          name="otp"
         />
       </Grid>
       <Grid item container xs={7} className={classes.mb4}>
         <BasicButton handleClick={next} color="primary" fullWidth={true}>
-          {content.text.loginButton}
+          {content.text.otpButton}
         </BasicButton>
       </Grid>
       <Grid item container xs={7} className={classes.mb4}>
+        <BasicButton handleClick={requestOTP} color="primary" fullWidth={true}>
+          Send code to my email again
+        </BasicButton>
+      </Grid>
+      <Grid item container xs={7}>
         <BasicButton
           handleClick={() =>
             dispatchViews({
-              login: false,
-              signUp: true,
-              splashScreen: matches ? true : false,
-              otpScreen: false
+              login: true,
+              signUp: false,
+              splashScreen: matches,
+              otpScreen: false,
             })
           }
           color="primary"
           fullWidth={true}
         >
-          {content.text.signUpButton}
+          Go back
         </BasicButton>
       </Grid>
-      {!views.splashScreen && (
-        <Grid item container xs={7}>
-          <BasicButton
-            handleClick={() =>
-              dispatchViews({
-                login: false,
-                signUp: false,
-                splashScreen: true,
-                otpScreen: false,
-              })
-            }
-            color="primary"
-            fullWidth={true}
-          >
-            Go back
-          </BasicButton>
-        </Grid>
-      )}
     </Grid>
   );
 }

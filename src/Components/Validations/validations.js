@@ -8,6 +8,13 @@ export const email = {
   }
 }
 
+export const codeRequired = {
+  presence: {
+    allowEmpty: false,
+    message: '^The code is required'
+  }
+}
+
 export const loginRequired = {
   presence: {
     allowEmpty: false, 

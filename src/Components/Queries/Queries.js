@@ -17,6 +17,13 @@ export const GET_USERS = gql`
       role
       email
       username
+      validatedUser
     }
   }
 `;
+
+export const REQUEST_OTP = gql`
+  query requestOTP {
+    requestOTP
+  }
+`

@@ -1,5 +1,5 @@
 import { Grid, Typography } from "@material-ui/core";
-import React, { useContext, useState } from "react";
+import React, {  useState } from "react";
 import BasicAutocomplete from "../RootComponents/BasicAutocomplete";
 import BasicInput from "../RootComponents/BasicInput";
 import BasicButton from "../RootComponents/BasicButton";
@@ -7,7 +7,6 @@ import useMutationHelper from "../Mutations/UseMutationHelper";
 import { UPSERT_USER } from "../Mutations/Mutations";
 import { GET_USERS } from "../Queries/Queries";
 import useFormReducer from "../Utils/UseFormReducer";
-import AppContext from "../Context/AppContext";
 import BasicAlert from '../RootComponents/BasicAlert'
 
 import BasicContainer from "../RootComponents/BasicContainer";
@@ -20,7 +19,7 @@ export default function UpsertUser({ history }) {
     open: false,
     text: "",
   });
-  const [form, dispatchForm, { updateForm, validateForm }] = useFormReducer({
+  const [form, _dispatchForm, { updateForm, validateForm }] = useFormReducer({
     initialState: [
       {
         name: {
@@ -99,7 +98,7 @@ export default function UpsertUser({ history }) {
     }
   };
   return (
-    <BasicContainer>
+    <BasicContainer justify='flex-start' alignContent='flex-start'>
       <Grid item xs={12} className={classes.title}>
         <Typography variant="h3">Create user</Typography>
       </Grid>

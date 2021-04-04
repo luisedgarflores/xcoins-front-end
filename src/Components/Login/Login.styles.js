@@ -10,7 +10,7 @@ export const useLoginStyles = makeStyles((theme) => ({
     zIndex: "-1",
   },
   rootSm: {
-    minHeight: 530,
+    minHeight: 600,
     height: "100vh",
     maxHeight: "auto",
     padding: "15px 15px 15px 15px",
@@ -25,6 +25,9 @@ export const useLoginStyles = makeStyles((theme) => ({
     height: "100%",
     margin: 0,
     padding: 0,
+  },
+  field: {
+    marginBottom: 32
   },
   splashScreenContainer: {
     padding: "0px 20px 0px 20px",
@@ -44,7 +47,7 @@ export const useLoginStyles = makeStyles((theme) => ({
   },
   splashScreenContainerSm: {
     padding: "20px 20px 20px 20px",
-    height: 500,
+    height: 600,
     background: "rgb(4,150,255)",
     background:
       "linear-gradient(56deg, rgba(4,150,255,1) 0%, rgba(153,226,235,1) 100%)",
@@ -53,9 +56,10 @@ export const useLoginStyles = makeStyles((theme) => ({
   loginContainerSm: {
     padding: "0px 0px 0px 0px",
     backgroundColor: deepPurple,
-    height: 500,
+    height: 600,
     borderRadius: "15px 15px 15px 15px",
   },
+
   title: {
     fontWeight: 500,
     marginTop: "25px",

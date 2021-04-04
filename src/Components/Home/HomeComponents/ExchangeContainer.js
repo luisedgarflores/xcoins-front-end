@@ -14,10 +14,10 @@ const ExchangeContainer = ({ children, title, subtitle }) => {
       className={classes.container}
     >
       <Grid item xs={12}>
-        <Typography align="center" variant="h1">
+        <Typography align="center" variant="h2">
           {title}
         </Typography>
-        <Typography align="center" variant="h6">
+        <Typography align="center" variant="subtitle1">
           {subtitle}
         </Typography>
       </Grid>

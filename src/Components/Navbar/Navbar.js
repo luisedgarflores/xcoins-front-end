@@ -1,5 +1,5 @@
 import { AppBar, makeStyles, Toolbar } from "@material-ui/core";
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useState, useContext } from "react";
 import { withRouter } from "react-router";
 import BasicButton from "../RootComponents/BasicButton";
 import { Switch, Route } from "react-router-dom";
@@ -7,7 +7,6 @@ import { getUserRoutes } from "../Utils/utils";
 import AppContext from "../Context/AppContext";
 import Login from "../Login/Login";
 import BasicAlert from "../RootComponents/BasicAlert";
-import _ from 'lodash'
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -22,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 16,
   },
 }));
-
+// Handles all client routes
 const Navbar = ({ history, _providerInstance }) => {
   const classes = useStyles();
   const appProvider = useContext(AppContext);
@@ -31,14 +30,17 @@ const Navbar = ({ history, _providerInstance }) => {
     text: "",
   });
 
+  // Deletes localstorage and resets the appProvider
   const handleLogout = () => {
     appProvider.setUser({});
     appProvider.setRoutes([]);
     localStorage.clear();
     history.replace("/");
-  }
+  };
 
   const [currentRoute, setCurrentRoute] = useState("/home");
+
+  // Set the route based on button clicked
   const handleRouteChange = (newRoute) => {
     setCurrentRoute((prevRoute) => {
       history.replace(newRoute);
@@ -46,8 +48,10 @@ const Navbar = ({ history, _providerInstance }) => {
     });
   };
 
+  // Gets current user routes based on it's role
   const userRoutes = getUserRoutes(appProvider.user.role);
 
+  // Filter routes that should not appear on the navbar
   const buttonRoutes = userRoutes.filter((route) => route.shouldAppear);
 
   return (
@@ -55,8 +59,9 @@ const Navbar = ({ history, _providerInstance }) => {
       {appProvider.user.role && (
         <AppBar position="fixed" color="secondary">
           <Toolbar variant="dense">
-            {buttonRoutes.map((route) => (
+            {buttonRoutes.map((route, index) => (
               <BasicButton
+                key={index}
                 className={classes.button}
                 disableElevation={true}
                 handleClick={() => handleRouteChange(route.path)}
@@ -76,8 +81,8 @@ const Navbar = ({ history, _providerInstance }) => {
         </AppBar>
       )}
       <Switch>
-        {userRoutes.map((route) => (
-          <Route path={route.path} component={route.component} />
+        {userRoutes.map((route, index) => (
+          <Route key={index} path={route.path} component={route.component} />
         ))}
         <Route path="/" component={Login} />
       </Switch>

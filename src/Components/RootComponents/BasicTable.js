@@ -3,7 +3,7 @@ import React, { memo, useCallback } from "react";
 import { Grid, Typography } from "@material-ui/core";
 //RootComponents
 import BasicButton from "../RootComponents/BasicButton";
-import { lightPurple, deepPurple } from '../Utils/colors';
+import {  deepPurple } from '../Utils/colors';
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -147,7 +147,7 @@ const BasicTable = memo(
                             return (
                               <TableCell key={index} align="center">
                                 <BasicButton
-                                  color="error"
+                                  color="primary"
                                   handleClick={() => handleDelete(row.id)}
                                 >
                                   {content.deleteButtonText}

@@ -18,7 +18,7 @@ export default function BasicAlert({ open, handleAlert, text, severity }) {
 
   return (
     <div className={classes.root}>
-      <Grow in={open}>
+      <Grow in={open} item xs={12} container justify='flex-end'>
         <Alert
           severity={severity}
           variant='outlined'

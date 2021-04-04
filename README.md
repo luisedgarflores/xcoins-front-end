@@ -4,6 +4,7 @@ How to run the frontend:
 
 * npm install
 * npm start
+* App will run on localhost:3000
 
 Features:
 
